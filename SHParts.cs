@@ -1,5 +1,4 @@
 namespace SunamoStringParts;
-
 public class SHParts
 {
     /// <summary>
@@ -39,7 +38,7 @@ public class SHParts
     }
 
     /// <summary>
-    ///     Usage: Exc.TypeAndMethodName
+    ///     Usage: Exceptions.TypeAndMethodName
     ///     Remove with A2
     /// </summary>
     /// <param name="t"></param>
