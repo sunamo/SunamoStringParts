@@ -9,6 +9,3 @@ global using SunamoStringParts._sunamo.SunamoExceptions;
 global using System.Diagnostics;
 global using System.Reflection;
 global using System.Net;
-global using SunamoStringParts;
-global using SunamoStringParts._sunamo;
-global using SunamoStringParts._sunamo.SunamoStringGetLines;
