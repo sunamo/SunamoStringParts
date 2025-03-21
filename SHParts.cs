@@ -9,6 +9,8 @@ public class SHParts
     /// <param name="nameSolution"></param>
     public static string RemoveAfterLast(string nameSolution, object delimiter)
     {
+        nameSolution = nameSolution.Trim();
+
         var dex = nameSolution.LastIndexOf(delimiter.ToString());
         if (dex != -1)
         {
@@ -45,6 +47,7 @@ public class SHParts
     /// <param name="ch"></param>
     public static string RemoveAfterFirst(string t, char ch)
     {
+        t = t.Trim();
         var dex = t.IndexOf(ch);
         return dex == -1 || dex == t.Length - 1 ? t : t.Substring(0, dex);
     }
@@ -57,6 +60,7 @@ public class SHParts
     /// <param name="ch"></param>
     public static string RemoveAfterFirst(string t, string ch)
     {
+        t= t.Trim();
         var dex = t.IndexOf(ch);
         if (dex == -1 || dex == t.Length - 1) return t;
         var vr = t.Remove(dex);
@@ -65,6 +69,7 @@ public class SHParts
 
     private static string TrimStart(string target, string trimString)
     {
+        target = target.Trim();
         if (string.IsNullOrEmpty(trimString)) return target;
         var result = target;
         while (result.StartsWith(trimString)) result = result.Substring(trimString.Length);
@@ -73,6 +78,7 @@ public class SHParts
 
     public static string KeepAfterFirst(string searchQuery, string after, bool keepDeli = false)
     {
+        searchQuery = searchQuery.Trim();
         var dx = searchQuery.IndexOf(after);
         if (dx != -1)
         {
@@ -85,6 +91,7 @@ public class SHParts
 
     public static string KeepAfterLast(string searchQuery, string after)
     {
+        searchQuery = searchQuery.Trim();
         var dx = searchQuery.LastIndexOf(after);
         if (dx != -1) return TrimStart(searchQuery.Substring(dx), after);
         return searchQuery;
