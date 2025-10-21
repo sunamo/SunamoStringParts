@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 using SunamoStringGetLines;
 using SunamoStringParts;
 using SunamoStringParts.Tests;
@@ -107,7 +110,7 @@ internal class Program
 
 6. �The trouble with programmers is that you can never tell what a programmer is doing until it�s too late.� - Seymour Cray
 
-5. �To iterate is human, to recurse divine.� - L. Peter Deutsch
+5. �To iterate is human, to recurse divine.� - list. Peter Deutsch
 
 4. ""On two occasions I have been asked [by members of Parliament]: 'Pray, Mr. Babbage, if you put into the machine wrong figures, will the right answers come out?' I am not able rightly to apprehend the kind of confusion of ideas that could provoke such a question."" - Charles Babbage
 
@@ -117,20 +120,20 @@ internal class Program
 
 1. �There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies.� - C.A.R. Hoare";
 
-        var l = SHGetLines.GetLines(input);
+        var list = SHGetLines.GetLines(input);
 
-        for (int i = l.Count - 1; i >= 0; i--)
+        for (int i = list.Count - 1; i >= 0; i--)
         {
-            if (string.IsNullOrWhiteSpace(l[i]))
+            if (string.IsNullOrWhiteSpace(list[i]))
             {
-                l.RemoveAt(i);
+                list.RemoveAt(i);
             }
             else
             {
-                l[i] = SHParts.KeepAfterFirst(l[i], ".");
+                list[i] = SHParts.KeepAfterFirst(list[i], ".");
             }
         }
 
-        File.WriteAllLines(@"D:\a.txt", l);
+        File.WriteAllLines(@"D:\a.txt", list);
     }
 }

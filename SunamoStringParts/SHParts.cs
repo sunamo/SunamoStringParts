@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoStringParts;
 public class SHParts
 {
@@ -14,8 +17,8 @@ public class SHParts
         var dex = nameSolution.LastIndexOf(delimiter.ToString());
         if (dex != -1)
         {
-            var s = nameSolution.Substring(0, dex); //SHSubstring.Substring(, 0, dex, new SubstringArgs());
-            return s;
+            var text = nameSolution.Substring(0, dex); //SHSubstring.Substring(, 0, dex, new SubstringArgs());
+            return text;
         }
 
         return nameSolution;
