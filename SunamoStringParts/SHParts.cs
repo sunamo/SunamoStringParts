@@ -1,100 +1,137 @@
 namespace SunamoStringParts;
 
+/// <summary>
+/// Provides methods for removing or keeping parts of a string based on delimiter positions.
+/// </summary>
 public class SHParts
 {
     /// <summary>
-    ///     Remove with char
-    ///     nameSolution musí být první kvůli ChangeContent
+    /// Removes everything after the last occurrence of <paramref name="delimiter"/> (including the delimiter itself).
+    /// The text parameter must be first due to ChangeContent usage.
     /// </summary>
-    /// <param name="us"></param>
-    /// <param name="nameSolution"></param>
-    public static string RemoveAfterLast(string nameSolution, object delimiter)
+    /// <param name="text">The input string to process.</param>
+    /// <param name="delimiter">The delimiter to search for.</param>
+    /// <returns>The substring before the last occurrence of the delimiter, or the original string if not found.</returns>
+    public static string RemoveAfterLast(string text, object delimiter)
     {
-        nameSolution = nameSolution.Trim();
+        text = text.Trim();
 
-        var dex = nameSolution.LastIndexOf(delimiter.ToString());
-        if (dex != -1)
+        var delimiterText = delimiter.ToString() ?? string.Empty;
+        var index = text.LastIndexOf(delimiterText);
+        if (index != -1)
         {
-            var text = nameSolution.Substring(0, dex); //SHSubstring.Substring(, 0, dex, new SubstringArgs());
-            return text;
+            var result = text.Substring(0, index);
+            return result;
         }
 
-        return nameSolution;
+        return text;
     }
 
-    public static string RemoveAfterFirstChar(string name, char dot)
+    /// <summary>
+    /// Removes everything after the first occurrence of the specified character delimiter.
+    /// </summary>
+    /// <param name="text">The input string to process.</param>
+    /// <param name="delimiter">The character delimiter to search for.</param>
+    /// <returns>The substring before the first occurrence of the delimiter.</returns>
+    public static string RemoveAfterFirstChar(string text, char delimiter)
     {
-        return RemoveAfterFirst(name, dot.ToString());
+        return RemoveAfterFirst(text, delimiter.ToString());
     }
 
-    public static string RemoveAfterFirstFunc(string v, Func<char, bool> isSpecial, params char[] canBe)
+    /// <summary>
+    /// Removes everything after the first character matching the predicate, unless that character is in the allowed list.
+    /// </summary>
+    /// <param name="text">The input string to process.</param>
+    /// <param name="predicate">A function that determines whether a character should trigger removal.</param>
+    /// <param name="allowedCharacters">Characters that are allowed even if they match the predicate.</param>
+    /// <returns>The substring before the first matching character, or the original string if no match is found.</returns>
+    public static string RemoveAfterFirstFunc(string text, Func<char, bool> predicate, params char[] allowedCharacters)
     {
-        v = v.Trim();
-        for (var i = 0; i < v.Length; i++)
-            if (isSpecial(v[i]))
+        text = text.Trim();
+        for (var i = 0; i < text.Length; i++)
+            if (predicate(text[i]))
             {
-                if (canBe.Contains(v[i])) continue;
-                return v.Substring(0, i);
+                if (allowedCharacters.Contains(text[i])) continue;
+                return text.Substring(0, i);
             }
 
-        return v;
+        return text;
     }
 
     /// <summary>
-    ///     Usage: Exceptions.TypeAndMethodName
-    ///     Remove with A2
+    /// Removes everything after the first occurrence of the specified character delimiter.
     /// </summary>
-    /// <param name="t"></param>
-    /// <param name="ch"></param>
-    public static string RemoveAfterFirst(string t, char ch)
+    /// <param name="text">The input string to process.</param>
+    /// <param name="delimiter">The character delimiter to search for.</param>
+    /// <returns>The substring before the first occurrence of the delimiter, or the original string if not found.</returns>
+    public static string RemoveAfterFirst(string text, char delimiter)
     {
-        t = t.Trim();
-        var dex = t.IndexOf(ch);
-        return dex == -1 || dex == t.Length - 1 ? t : t.Substring(0, dex);
+        text = text.Trim();
+        var index = text.IndexOf(delimiter);
+        return index == -1 || index == text.Length - 1 ? text : text.Substring(0, index);
     }
 
     /// <summary>
-    ///     Remove also A2
-    ///     Don't trim
+    /// Removes everything after the first occurrence of the specified string delimiter (including the delimiter itself).
     /// </summary>
-    /// <param name="t"></param>
-    /// <param name="ch"></param>
-    public static string RemoveAfterFirst(string t, string ch)
+    /// <param name="text">The input string to process.</param>
+    /// <param name="delimiter">The string delimiter to search for.</param>
+    /// <returns>The substring before the first occurrence of the delimiter, or the original string if not found.</returns>
+    public static string RemoveAfterFirst(string text, string delimiter)
     {
-        t= t.Trim();
-        var dex = t.IndexOf(ch);
-        if (dex == -1 || dex == t.Length - 1) return t;
-        var vr = t.Remove(dex);
-        return vr;
-    }
-
-    private static string TrimStart(string target, string trimString)
-    {
-        target = target.Trim();
-        if (string.IsNullOrEmpty(trimString)) return target;
-        var result = target;
-        while (result.StartsWith(trimString)) result = result.Substring(trimString.Length);
+        text = text.Trim();
+        var index = text.IndexOf(delimiter);
+        if (index == -1 || index == text.Length - 1) return text;
+        var result = text.Remove(index);
         return result;
     }
 
-    public static string KeepAfterFirst(string searchQuery, string after, bool keepDeli = false)
+    /// <summary>
+    /// Trims the specified prefix from the start of the string repeatedly.
+    /// </summary>
+    /// <param name="text">The input string to process.</param>
+    /// <param name="prefix">The prefix to remove from the start.</param>
+    /// <returns>The string with all leading occurrences of the prefix removed.</returns>
+    private static string TrimStart(string text, string prefix)
     {
-        searchQuery = searchQuery.Trim();
-        var dx = searchQuery.IndexOf(after);
-        if (dx != -1)
-        {
-            searchQuery = TrimStart(searchQuery.Substring(dx), after);
-            if (keepDeli) searchQuery = after + searchQuery;
-        }
-
-        return searchQuery;
+        text = text.Trim();
+        if (string.IsNullOrEmpty(prefix)) return text;
+        var result = text;
+        while (result.StartsWith(prefix)) result = result.Substring(prefix.Length);
+        return result;
     }
 
-    public static string KeepAfterLast(string searchQuery, string after)
+    /// <summary>
+    /// Keeps only the part of the string after the first occurrence of the specified delimiter.
+    /// </summary>
+    /// <param name="text">The input string to process.</param>
+    /// <param name="delimiter">The delimiter to search for.</param>
+    /// <param name="isKeepingDelimiter">If true, the delimiter is prepended to the result.</param>
+    /// <returns>The substring after the first occurrence of the delimiter, or the original string if not found.</returns>
+    public static string KeepAfterFirst(string text, string delimiter, bool isKeepingDelimiter = false)
     {
-        searchQuery = searchQuery.Trim();
-        var dx = searchQuery.LastIndexOf(after);
-        if (dx != -1) return TrimStart(searchQuery.Substring(dx), after);
-        return searchQuery;
+        text = text.Trim();
+        var index = text.IndexOf(delimiter);
+        if (index != -1)
+        {
+            text = TrimStart(text.Substring(index), delimiter);
+            if (isKeepingDelimiter) text = delimiter + text;
+        }
+
+        return text;
+    }
+
+    /// <summary>
+    /// Keeps only the part of the string after the last occurrence of the specified delimiter.
+    /// </summary>
+    /// <param name="text">The input string to process.</param>
+    /// <param name="delimiter">The delimiter to search for.</param>
+    /// <returns>The substring after the last occurrence of the delimiter, or the original string if not found.</returns>
+    public static string KeepAfterLast(string text, string delimiter)
+    {
+        text = text.Trim();
+        var index = text.LastIndexOf(delimiter);
+        if (index != -1) return TrimStart(text.Substring(index), delimiter);
+        return text;
     }
 }
