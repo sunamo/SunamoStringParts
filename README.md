@@ -1,5 +1,10 @@
 # SunamoStringParts
 
+## Short description
+
+Knihovna pro odstraňování nebo ponechávání částí řetězce podle pozice podřetězce v něm. Součást sbírky pinp s testy a Runnerem.
+
+
 Removing / keeping parts of a string according to the position of a substring in it.
 
 ## Overview
