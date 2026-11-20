@@ -1,7 +1,16 @@
 namespace SunamoStringParts;
 
+/// <summary>
+/// Represents the SH parts type.
+/// </summary>
 public class SHParts
 {
+    /// <summary>
+    /// Remove after last.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns>The remove after last result.</returns>
     public static string RemoveAfterLast(string text, object delimiter)
     {
         text = text.Trim();
@@ -17,11 +26,24 @@ public class SHParts
         return text;
     }
 
+    /// <summary>
+    /// Remove after first char.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns>The remove after first char result.</returns>
     public static string RemoveAfterFirstChar(string text, char delimiter)
     {
         return RemoveAfterFirst(text, delimiter.ToString());
     }
 
+    /// <summary>
+    /// Remove after first func.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="predicate">The predicate.</param>
+    /// <param name="allowedCharacters">The allowed characters.</param>
+    /// <returns>The remove after first func result.</returns>
     public static string RemoveAfterFirstFunc(string text, Func<char, bool> predicate, params char[] allowedCharacters)
     {
         text = text.Trim();
@@ -35,6 +57,12 @@ public class SHParts
         return text;
     }
 
+    /// <summary>
+    /// Remove after first.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns>The remove after first result.</returns>
     public static string RemoveAfterFirst(string text, char delimiter)
     {
         text = text.Trim();
@@ -42,6 +70,12 @@ public class SHParts
         return index == -1 || index == text.Length - 1 ? text : text.Substring(0, index);
     }
 
+    /// <summary>
+    /// Remove after first.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns>The remove after first result.</returns>
     public static string RemoveAfterFirst(string text, string delimiter)
     {
         text = text.Trim();
@@ -60,6 +94,13 @@ public class SHParts
         return result;
     }
 
+    /// <summary>
+    /// Keep after first.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <param name="isKeepingDelimiter">The is keeping delimiter.</param>
+    /// <returns>The keep after first result.</returns>
     public static string KeepAfterFirst(string text, string delimiter, bool isKeepingDelimiter = false)
     {
         text = text.Trim();
@@ -73,6 +114,12 @@ public class SHParts
         return text;
     }
 
+    /// <summary>
+    /// Keep after last.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns>The keep after last result.</returns>
     public static string KeepAfterLast(string text, string delimiter)
     {
         text = text.Trim();
